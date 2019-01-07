@@ -26,25 +26,25 @@ namespace permutations
         [Option(ShortName = "rf", Description = "Number of random fields")]
         public int RandomFields { get; }
 
-        [Option(ShortName = "e")]
-        public bool isEuro { get; }
-
 
         private void OnExecute()
         {
+            if (Numbers < Choices)
+            {
+                Console.WriteLine("First argument has to be smaller than the second");
+                return;
+            }
 
+            Permutation perm = new Permutation(Numbers, Choices);
+            double possibilities = SpecialFunctions.Binomial(Numbers, Choices);
 
             if (RandomFields > 0)
             {
-                if (Numbers < Choices)
-                {
-                    Console.WriteLine("First argument has to be smaller than the second");
-                }
-
-                Permutation perm = new Permutation(Numbers, Choices);
-                double possibilities = SpecialFunctions.Binomial(Numbers, Choices);
-                Console.WriteLine($"\n{RandomFields} random choices out of {possibilities}\n");
                 perm.PrintRandomFields(RandomFields);
+            }
+            else
+            {
+                perm.PrintResult();
             }
         }
     }

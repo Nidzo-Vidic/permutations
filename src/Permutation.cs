@@ -24,34 +24,8 @@ namespace permutations
             field = Enumerable.Range(1, field.Length).ToArray();
 
             allPermutations
-                .Append($"{kombinations,15}")
-                .AppendLine()
                 .AppendJoin($"{' '}", field)
                 .AppendLine();
-        }
-
-        public void PrintRandomFieldsFromFile(int fields)
-        {
-            string fileName = $"{choices}aus{numbers}.txt";
-            Random rng = new Random(); ;
-            int randomNumber;
-            if (!File.Exists(fileName))
-            {
-                WriteToFile(fileName);
-            }
-
-            var lines = File.ReadLines(fileName);
-            int lineCount = lines.Count();
-
-            for (int i = 0; i < fields; i++)
-            {
-                randomNumber = rng.Next(3, lineCount - 1);
-                string[] line = lines.Skip(randomNumber + 1).Take(1).First().Split($"{' '}");
-                Console.WriteLine($"Feld Nr. {i + 1,-8}");
-                Console.WriteLine($"Zeile {randomNumber}\n");
-                Console.WriteLine(new StringBuilder().AppendJoin($"{' ',-6}", line));
-                Console.WriteLine();
-            }
         }
 
         public void PrintRandomFields(int fields)
@@ -66,11 +40,8 @@ namespace permutations
             {
                 randomNumber = rng.Next(3, lineCount);
                 string line = lines[randomNumber];
-                Console.Write($"Field Nr. {i + 1}  ||  ");
-                // Console.WriteLine($"Zeile {randomNumber}\n");
                 StringBuilder field = new StringBuilder().AppendJoin($"{' ',-8}", line.Split($"{' ',-10}"));
                 Console.WriteLine(field);
-                Console.WriteLine();
             }
         }
 
