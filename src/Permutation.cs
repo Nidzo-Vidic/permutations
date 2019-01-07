@@ -38,7 +38,7 @@ namespace permutations
             int lineCount = lines.Count();
             for (int i = 0; i < fields; i++)
             {
-                randomNumber = rng.Next(3, lineCount);
+                randomNumber = rng.Next(0, lineCount);
                 string line = lines[randomNumber];
                 StringBuilder field = new StringBuilder().AppendJoin($"{' ',-8}", line.Split($"{' ',-10}"));
                 Console.WriteLine(field);
@@ -49,16 +49,6 @@ namespace permutations
         {
             CreateAllPermutations();
             Console.Write(allPermutations);
-        }
-
-        public void WriteToFile(string fileName)
-        {
-            string currentDir = Directory.GetCurrentDirectory();
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(currentDir, fileName)))
-            {
-                CreateAllPermutations();
-                outputFile.Write(allPermutations);
-            }
         }
 
         private void CreateAllPermutations()
