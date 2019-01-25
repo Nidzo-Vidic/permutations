@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace permutations
@@ -31,11 +32,11 @@ namespace permutations
         public void PrintRandomFields(int fields)
         {
             CreateAllPermutations();
-            Random rng = new Random();
+            RandomGenerator rng = new RandomGenerator();
             int randomNumber;
             string permutations = allPermutations.ToString();
             string[] lines = permutations.Split("\n");
-            int lineCount = lines.Count();
+            int lineCount = lines.Count() - 1;
             for (int i = 0; i < fields; i++)
             {
                 randomNumber = rng.Next(0, lineCount);
