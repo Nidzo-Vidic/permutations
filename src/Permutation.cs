@@ -20,8 +20,6 @@ namespace permutations
             this.choices = choices;
             this.field = new int[choices];
 
-            string kombinations = $"{' ',2}{this.choices} aus {this.numbers} Kombinationen\n";
-
             field = Enumerable.Range(1, field.Length).ToArray();
 
             allPermutations

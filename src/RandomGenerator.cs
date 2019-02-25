@@ -1,41 +1,44 @@
 using System;
 using System.Security.Cryptography;
 
-public class RandomGenerator
+namespace permutations
 {
-    readonly RNGCryptoServiceProvider csp;
-
-    public RandomGenerator()
+    public class RandomGenerator
     {
-        csp = new RNGCryptoServiceProvider();
-    }
+        readonly RNGCryptoServiceProvider csp;
 
-    public int Next(int minValue, int maxExclusiveValue)
-    {
-        if (minValue >= maxExclusiveValue)
-            throw new ArgumentOutOfRangeException("minValue must be lower than maxExclusiveValue");
-
-        long diff = (long)maxExclusiveValue - minValue;
-        long upperBound = uint.MaxValue / diff * diff;
-
-        uint ui;
-        do
+        public RandomGenerator()
         {
-            ui = GetRandomUInt();
-        } while (ui >= upperBound);
-        return (int)(minValue + (ui % diff));
-    }
+            csp = new RNGCryptoServiceProvider();
+        }
 
-    private uint GetRandomUInt()
-    {
-        var randomBytes = GenerateRandomBytes(sizeof(uint));
-        return BitConverter.ToUInt32(randomBytes, 0);
-    }
+        public int Next(int minValue, int maxExclusiveValue)
+        {
+            if (minValue >= maxExclusiveValue)
+                throw new ArgumentOutOfRangeException("minValue must be lower than maxExclusiveValue");
 
-    private byte[] GenerateRandomBytes(int bytesNumber)
-    {
-        byte[] buffer = new byte[bytesNumber];
-        csp.GetBytes(buffer);
-        return buffer;
+            long diff = (long)maxExclusiveValue - minValue;
+            long upperBound = uint.MaxValue / diff * diff;
+
+            uint ui;
+            do
+            {
+                ui = GetRandomUInt();
+            } while (ui >= upperBound);
+            return (int)(minValue + (ui % diff));
+        }
+
+        private uint GetRandomUInt()
+        {
+            var randomBytes = GenerateRandomBytes(sizeof(uint));
+            return BitConverter.ToUInt32(randomBytes, 0);
+        }
+
+        private byte[] GenerateRandomBytes(int bytesNumber)
+        {
+            byte[] buffer = new byte[bytesNumber];
+            csp.GetBytes(buffer);
+            return buffer;
+        }
     }
 }
