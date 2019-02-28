@@ -29,28 +29,25 @@ namespace permutations
 
         public void PrintRandomFields(int fields)
         {
-            CreateAllPermutations();
             RandomGenerator rng = new RandomGenerator();
             int randomNumber;
             string permutations = allPermutations.ToString();
-            string[] lines = permutations.Split("\n");
-            int lineCount = lines.Count() - 1;
+            ReadOnlySpan<string> lines = permutations.Split("\n").AsSpan();
+            int lineCount = lines.Length - 1;
             for (int i = 0; i < fields; i++)
             {
                 randomNumber = rng.Next(0, lineCount);
                 string line = lines[randomNumber];
-                StringBuilder field = new StringBuilder().AppendJoin($"{' ',-8}", line.Split($"{' ',-10}"));
-                Console.WriteLine(field);
+                Console.WriteLine(line);
             }
         }
 
         public void PrintResult()
         {
-            CreateAllPermutations();
             Console.Write(allPermutations);
         }
 
-        private void CreateAllPermutations()
+        public void CreatePermutationsRecursive()
         {
             for (int i = this.field.Length; i > 0; i--)
             {
@@ -82,5 +79,53 @@ namespace permutations
                 }
             }
         }
+
+
+        public void CreatePermutationsIterative()
+        {
+            int pivot = field.Length;
+            int fieldEnd = getFieldEnd(pivot);
+            int currentField = field[pivot - 1];
+
+            while (pivot != 0 && currentField != fieldEnd)
+            {
+                field[pivot - 1]++;
+                currentField = field[pivot - 1];
+
+                if (pivot < field.Length && currentField != fieldEnd)
+                {
+                    pivot++;
+                    for (int i = pivot - 1; i < field.Length; i++)
+                    {
+                        field[i] = field[i - 1] + 1;
+                    }
+                    if (pivot < field.Length)
+                    {
+                        if (field[pivot] < getFieldEnd(pivot + 1))
+                        {
+                            pivot++;
+                        }
+                    }
+                    fieldEnd = getFieldEnd(pivot);
+                }
+
+                allPermutations
+                    .AppendJoin($"{' '}", field)
+                    .AppendLine();
+
+                if (currentField == fieldEnd)
+                {
+                    pivot--;
+                    fieldEnd = getFieldEnd(pivot);
+                }
+
+            }
+        }
+
+        public int getFieldEnd(int pivot)
+        {
+            return numbers - choices + pivot;
+        }
+
     }
 }
