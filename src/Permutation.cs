@@ -101,7 +101,8 @@ namespace permutations
                     }
                     if (pivot < field.Length)
                     {
-                        if (field[pivot] < getFieldEnd(pivot + 1))
+                        fieldEnd = getFieldEnd(pivot + 1);
+                        if (field[pivot] < fieldEnd)
                         {
                             pivot++;
                         }
@@ -109,16 +110,15 @@ namespace permutations
                     fieldEnd = getFieldEnd(pivot);
                 }
 
-                allPermutations
-                    .AppendJoin($"{' '}", field)
-                    .AppendLine();
-
                 if (currentField == fieldEnd)
                 {
                     pivot--;
                     fieldEnd = getFieldEnd(pivot);
                 }
 
+                allPermutations
+                    .AppendJoin($"{' '}", field)
+                    .AppendLine();
             }
         }
 
