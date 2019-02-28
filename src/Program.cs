@@ -26,6 +26,12 @@ namespace permutations
         [Option(ShortName = "rf", Description = "Number of random fields")]
         public int RandomFields { get; }
 
+        [Option]
+        public bool Recursive { get; }
+
+        [Option]
+        public bool Print { get; set; }
+
 
         private void OnExecute()
         {
@@ -36,15 +42,25 @@ namespace permutations
             }
 
             Permutation perm = new Permutation(Numbers, Choices);
-            double possibilities = SpecialFunctions.Binomial(Numbers, Choices);
 
-            if (RandomFields > 0)
+            if (Recursive)
             {
-                perm.PrintRandomFields(RandomFields);
+                perm.CreatePermutationsRecursive();
             }
             else
             {
+                perm.CreatePermutationsIterative();
+            }
+
+            if (Print)
+            {
                 perm.PrintResult();
+            }
+
+            if (RandomFields > 0)
+            {
+                Console.WriteLine();
+                perm.PrintRandomFields(RandomFields);
             }
         }
     }
