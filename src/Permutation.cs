@@ -99,7 +99,7 @@ namespace permutations
                     {
                         field[i] = field[i - 1] + 1;
                     }
-                    if (pivot < field.Length)
+                    while (pivot < field.Length)
                     {
                         fieldEnd = getFieldEnd(pivot + 1);
                         if (field[pivot] < fieldEnd)
