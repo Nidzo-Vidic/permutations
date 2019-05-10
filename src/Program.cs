@@ -1,5 +1,4 @@
 ﻿using System;
-using MathNet.Numerics;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using McMaster.Extensions.CommandLineUtils;

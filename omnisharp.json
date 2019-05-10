@@ -32,6 +32,7 @@
     "IndentBlock": true,
     "IndentSwitchSection": true,
     "IndentSwitchCaseSection": true,
+    "IndentSwitchCaseSectionWhenBlock": true,
     "LabelPositioning": "oneLess",
     "WrappingPreserveSingleLine": true,
     "WrappingKeepStatementsOnSingleLine": true,
