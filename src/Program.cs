@@ -26,9 +26,6 @@ namespace permutations
         public int RandomFields { get; }
 
         [Option]
-        public bool Recursive { get; }
-
-        [Option]
         public bool Print { get; set; }
 
 
@@ -42,14 +39,12 @@ namespace permutations
 
             Permutation perm = new Permutation(Numbers, Choices);
 
-            if (Recursive)
-            {
-                perm.CreatePermutationsRecursive();
-            }
-            else
-            {
-                perm.CreatePermutationsIterative();
-            }
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            perm.CreatePermutationsIterative();
+            sw.Stop();
+
+            Console.WriteLine(sw.Elapsed);
 
             if (Print)
             {
