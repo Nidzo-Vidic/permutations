@@ -40,6 +40,7 @@ namespace permutations
         {
             return numbers - choices + pivot + 1;
         }
+
         public void CreatePermutationsIterative()
         {
             int[] field = Enumerable.Range(1, choices).ToArray();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using McMaster.Extensions.CommandLineUtils;
 
 namespace permutations
@@ -39,12 +38,7 @@ namespace permutations
 
             Permutation perm = new Permutation(Numbers, Choices);
 
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
             perm.CreatePermutationsIterative();
-            sw.Stop();
-
-            Console.WriteLine(sw.Elapsed);
 
             if (Print)
             {
