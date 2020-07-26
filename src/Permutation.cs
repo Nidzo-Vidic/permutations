@@ -6,9 +6,9 @@ namespace permutations
 {
     public class Permutation
     {
-        private int numbers;
-        private int choices;
-        private StringBuilder allPermutations = new StringBuilder("");
+        private readonly int numbers;
+        private readonly int choices;
+        private readonly StringBuilder allPermutations = new StringBuilder("");
 
         public Permutation(int numbers, int choices)
         {
@@ -36,7 +36,7 @@ namespace permutations
             Console.Write(allPermutations);
         }
 
-        public int getFieldEnd(in int pivot)
+        public int GetFieldEnd(in int pivot)
         {
             return numbers - choices + pivot + 1;
         }
@@ -50,7 +50,7 @@ namespace permutations
                 .AppendLine();
 
             int pivot = field.Length - 1;
-            int fieldEnd = getFieldEnd(pivot);
+            int fieldEnd = GetFieldEnd(pivot);
             int currentField = field[pivot];
 
             while (pivot != -1 && currentField != fieldEnd)
@@ -67,19 +67,19 @@ namespace permutations
                     }
                     while (pivot < field.Length - 1)
                     {
-                        fieldEnd = getFieldEnd(pivot + 1);
+                        fieldEnd = GetFieldEnd(pivot + 1);
                         if (field[pivot] < fieldEnd)
                         {
                             pivot++;
                         }
                     }
-                    fieldEnd = getFieldEnd(pivot);
+                    fieldEnd = GetFieldEnd(pivot);
                 }
 
                 if (currentField == fieldEnd)
                 {
                     pivot--;
-                    fieldEnd = getFieldEnd(pivot);
+                    fieldEnd = GetFieldEnd(pivot);
                 }
 
                 allPermutations
